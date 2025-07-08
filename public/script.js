@@ -3,12 +3,11 @@ const GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdVKgwH
 const ENTRY_BARCODE = "entry.01";
 const ENTRY_STATUS = "entry.02";
 
-// QuaggaJS の初期化（video を自分で用意して target に指定）
+// Quagga の初期化（targetを指定しない → Quaggaが自動で video を作成する）
 Quagga.init({
   inputStream: {
     name: "Live",
     type: "LiveStream",
-    target: document.querySelector("#scanner"), // 自前の video に埋め込む！
     constraints: {
       facingMode: "environment"
     }
@@ -32,7 +31,7 @@ Quagga.onDetected(function(result) {
   document.getElementById("barcode").value = code;
   console.log("検出:", code);
 
-  // 一旦停止（連続検出防止）
+  // 連続検出防止
   Quagga.stop();
 });
 
