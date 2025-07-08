@@ -50,6 +50,11 @@ Quagga.onDetected(function(result) {
   Quagga.stop();
   if (track) track.stop();
 
+  // ← ここが確実！
+  video.style.display = "none";
+});
+
+
   // ✅ 映像を完全に非表示（スムーズに）
   video.style.width = "0px";
   video.style.height = "0px";
