@@ -2,15 +2,16 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>バーコードスキャナー（iPhone版）</title>
+  <title>バーコードスキャナー（安定版＋大文字＋中央寄せ）</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://unpkg.com/@ericblade/quagga2/dist/quagga.min.js"></script>
   <script src="script.js" defer></script>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>バーコードスキャナー（カメラ自前表示 + Quagga解析）</h1>
+  <h1>バーコードスキャナー<br>（カメラ映像）</h1>
 
-  <!-- 100%自分で管理する video -->
-  <video id="preview" autoplay playsinline muted style="width: 100%; max-width: 600px; border: 4px solid #333;"></video>
+  <video id="preview" autoplay playsinline muted></video>
 
   <div>
     <label>スキャン結果:</label>
