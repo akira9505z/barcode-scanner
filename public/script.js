@@ -1,41 +1,54 @@
-// Googleフォームの送信先
 const GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdVKgwHvgEPYnCXUZhU0f8rWKdLYaA9GHdlNlrRX9RSy4GhtQ/formResponse";
 const ENTRY_BARCODE = "entry.01";
 const ENTRY_STATUS = "entry.02";
 
-// Quagga の初期化（targetを指定しない → Quaggaが自動で video を作成する）
-Quagga.init({
-  inputStream: {
-    name: "Live",
-    type: "LiveStream",
-    constraints: {
-      facingMode: "environment"
-    }
-  },
-  decoder: {
-    readers: ["code_128_reader", "ean_reader", "ean_8_reader"]
-  },
-  locate: true
-}, function(err) {
-  if (err) {
-    console.error(err);
-    return;
-  }
-  console.log("QuaggaJS ready → start!");
-  Quagga.start();
-});
+// Safariでも確実に映像を表示
+const video = document.getElementById("preview");
+let track;
 
-// 検出結果を input に表示
-Quagga.onDetected(function(result) {
+// カメラ起動
+navigator.mediaDevices.getUserMedia({
+  video: { facingMode: "environment" },
+  audio: false
+}).then(stream => {
+  video.srcObject = stream;
+  track = stream.getTracks()[0];
+  video.play();
+
+  console.log("カメラ映像 OK");
+
+  // QuaggaをImageStreamモードで起動
+  Quagga.init({
+    inputStream: {
+      name: "Live",
+      type: "LiveStream",
+      target: video // ここは指定してもOK
+    },
+    decoder: {
+      readers: ["code_128_reader", "ean_reader", "ean_8_reader"]
+    },
+    locate: true
+  }, function(err) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log("QuaggaJS ready → start!");
+    Quagga.start();
+  });
+}).catch(console.error);
+
+// 検出結果
+Quagga.onDetected(result => {
   const code = result.codeResult.code;
   document.getElementById("barcode").value = code;
   console.log("検出:", code);
 
-  // 連続検出防止
   Quagga.stop();
+  if (track) track.stop(); // カメラ停止
 });
 
-// Googleフォームに送信
+// フォーム送信
 document.getElementById("submitBtn").addEventListener("click", function() {
   const barcode = document.getElementById("barcode").value;
   const status = document.getElementById("status").value;
