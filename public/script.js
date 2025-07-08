@@ -39,13 +39,16 @@ navigator.mediaDevices.getUserMedia({
 }).catch(console.error);
 
 // 検出結果
-Quagga.onDetected(result => {
+Quagga.onDetected(function(result) {
   const code = result.codeResult.code;
   document.getElementById("barcode").value = code;
   console.log("検出:", code);
 
   Quagga.stop();
-  if (track) track.stop(); // カメラ停止
+
+  const video = document.getElementById("preview");
+  video.style.width = "150px";
+  video.style.opacity = "0.3"; // 透過度もお好みで
 });
 
 // フォーム送信
