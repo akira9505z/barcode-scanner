@@ -2,7 +2,6 @@ const GOOGLE_FORM_ACTION_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdVKgwH
 const ENTRY_BARCODE = "entry.01";
 const ENTRY_STATUS = "entry.02";
 
-// Safariでも確実に映像を表示
 const video = document.getElementById("preview");
 let track;
 
@@ -15,14 +14,14 @@ navigator.mediaDevices.getUserMedia({
   track = stream.getTracks()[0];
   video.play();
 
-  console.log("カメラ映像 OK");
+  console.log("✅ カメラ映像 OK");
 
-  // QuaggaをImageStreamモードで起動
+  // Quaggaを起動
   Quagga.init({
     inputStream: {
       name: "Live",
       type: "LiveStream",
-      target: video // ここは指定してもOK
+      target: video
     },
     decoder: {
       readers: ["code_128_reader", "ean_reader", "ean_8_reader"]
@@ -33,25 +32,30 @@ navigator.mediaDevices.getUserMedia({
       console.error(err);
       return;
     }
-    console.log("QuaggaJS ready → start!");
+    console.log("✅ Quagga ready → start!");
     Quagga.start();
   });
-}).catch(console.error);
+
+}).catch(err => {
+  console.error("❌ カメラ起動失敗", err);
+  alert("カメラの許可を確認してください！");
+});
 
 // 検出結果
 Quagga.onDetected(function(result) {
   const code = result.codeResult.code;
   document.getElementById("barcode").value = code;
-  console.log("検出:", code);
+  console.log("✅ 検出:", code);
 
   Quagga.stop();
+  if (track) track.stop();
 
-  const video = document.getElementById("preview");
+  // 映像を縮小＋半透明化
   video.style.width = "150px";
-  video.style.opacity = "0.3"; // 透過度もお好みで
+  video.style.opacity = "0.3";
 });
 
-// フォーム送信
+// Googleフォームに送信
 document.getElementById("submitBtn").addEventListener("click", function() {
   const barcode = document.getElementById("barcode").value;
   const status = document.getElementById("status").value;
