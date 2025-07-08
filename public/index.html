@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>バーコードスキャナー（映像付き 修正版）</title>
+  <script src="https://unpkg.com/@ericblade/quagga2/dist/quagga.min.js"></script>
+  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>バーコードスキャナー（カメラ映像修正版）</h1>
+
+  <!-- 自分で video を置いて playsinline, autoplay, muted を指定 -->
+  <video id="scanner" autoplay muted playsinline style="width: 100%; max-width: 600px; border: 4px solid #333; border-radius: 8px;"></video>
+
+  <div>
+    <label>スキャン結果:</label>
+    <input type="text" id="barcode" readonly>
+  </div>
+
+  <div>
+    <label>ステータス:</label>
+    <select id="status">
+      <option>DEPO受け入れ</option>
+      <option>ドローン搭載・配達中</option>
+      <option>共同受取施設 敷地到着</option>
+      <option>共同受取施設 受渡待ち</option>
+      <option>配達完了</option>
+    </select>
+  </div>
+
+  <button id="submitBtn">Googleフォームに送信</button>
+</body>
+</html>

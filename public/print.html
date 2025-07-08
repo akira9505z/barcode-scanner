@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>ラベル印刷</title>
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+</head>
+<body>
+  <h1>印刷用ラベル</h1>
+  <div id="label">
+    <svg id="barcode"></svg>
+    <p id="status"></p>
+  </div>
+
+  <button onclick="window.print()">印刷する</button>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+    const status = params.get("status");
+    JsBarcode("#barcode", code, {
+      format: "CODE128",
+      width: 2,
+      height: 50
+    });
+    document.getElementById("status").innerText = `ステータス: ${status}`;
+  </script>
+</body>
+</html>
