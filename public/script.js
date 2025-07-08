@@ -50,9 +50,12 @@ Quagga.onDetected(function(result) {
   Quagga.stop();
   if (track) track.stop();
 
-  // 映像を縮小＋半透明化
-  video.style.width = "150px";
-  video.style.opacity = "0.3";
+  // ✅ 映像を完全に非表示（スムーズに）
+  video.style.width = "0px";
+  video.style.height = "0px";
+  video.style.opacity = "0";
+  // （任意） 完全に消すなら display:none でもOK
+  // setTimeout(() => { video.style.display = "none"; }, 500);
 });
 
 // Googleフォームに送信
