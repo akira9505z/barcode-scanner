@@ -1,5 +1,5 @@
 body {
-  font-size: 1rem; /* ベースを少し小さく */
+  font-size: 1rem;
   line-height: 1.5;
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
   text-align: center;
@@ -8,7 +8,7 @@ body {
 }
 
 h1 {
-  font-size: 1.2rem; /* 見出しも小さめに */
+  font-size: 1.2rem;
   margin-bottom: 1.2em;
 }
 
@@ -38,4 +38,5 @@ video {
   max-width: 100%;
   border: 4px solid #333;
   border-radius: 8px;
+  transition: all 0.5s ease;  /* ← 縮小を滑らかにする！ */
 }
