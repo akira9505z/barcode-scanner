@@ -1,6 +1,6 @@
 body {
-  font-size: 1.3rem;
-  line-height: 1.6;
+  font-size: 1rem; /* ベースを少し小さく */
+  line-height: 1.5;
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
   text-align: center;
   padding: 20px;
@@ -8,27 +8,27 @@ body {
 }
 
 h1 {
-  font-size: 1.8rem;
-  margin-bottom: 1.5em;
+  font-size: 1.2rem; /* 見出しも小さめに */
+  margin-bottom: 1.2em;
 }
 
 label {
-  font-size: 1.3rem;
+  font-size: 1rem;
   display: block;
   margin: 1em 0 0.5em 0;
 }
 
 input, select {
-  font-size: 1.3rem;
-  padding: 0.5em 1em;
+  font-size: 1rem;
+  padding: 0.4em 0.8em;
   margin: 0.5em auto;
   display: inline-block;
 }
 
 button {
-  font-size: 1.3rem;
-  padding: 0.8em 1.5em;
-  margin-top: 1.5em;
+  font-size: 1rem;
+  padding: 0.6em 1.2em;
+  margin-top: 1.2em;
   cursor: pointer;
 }
 
